@@ -15,8 +15,12 @@ class EditarActivity : AppCompatActivity() {
         val casa = intent.getParcelableExtra<Casa?>("casa")
         val pos = intent.getIntExtra("pos", 0)
 
+        Log.i("intent-nombre-apellido", "casa actualizar ${casa.toString()}")
+
         button_actualizar.setOnClickListener {
-            this.ActualizarCasa(id_editar.toString(), desc_editar.toString(), m2_editar.toString(), precio_editar.toString(), pos)
+            this.ActualizarCasa(id_editar.text.toString(), desc_editar.text.toString(), m2_editar.text.toString(), precio_editar.text.toString(), pos)
+            Log.i("intent-nombre-apellido", "id editar ${id_editar.text.toString()}")
+
             this.irAListar()
         }
     }
@@ -27,11 +31,14 @@ class EditarActivity : AppCompatActivity() {
 
         BDD.Casa[pos] = nuevaCasa
 
-        Log.i("intent-nombre-apellido", "CASA ${BDD.Casa.toString()}")
+        Log.i("intent-nombre-apellido", "CASA ${BDD.Casa[pos].toString()}")
     }
     fun irAListar(){
         val intentListar = Intent(this, ListarActivity::class.java);
         this.startActivity(intentListar)
+    }
+    fun mostrarCampos(casa: Casa){
+        id_editar.text = casa.numeroCasa;
     }
 
 }
